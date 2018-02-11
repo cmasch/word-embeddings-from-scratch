@@ -19,6 +19,36 @@ Finally start TensorBoard:
 tensorboard --logdir emb_yelp/
 ```
 
+## Using trained embeddings in Keras
+If you would like to use your own trained embeddings for neural networks, you can load the trained weights (vectors) in an [embedding layer](https://keras.io/layers/embeddings/) (e.g. Keras). This is really useful, especially if you have just a few samples to train your network on. Another reason is that existing pre-trained models like Google word2vec or GloVe are maybe not sufficient because they are not task-specific embeddings.
+
+If you need an example how to use trained embeddings of gensim in Keras, please take a look at the code snippet below. This is similiar to this [jupyter notebook](https://github.com/cmasch/cnn-text-classification/blob/master/Evaluation.ipynb) where I used GloVe. But loading gensim weights is quite a bit different.
+
+```python
+def get_embedding_weights(gensim_model, tokenizer, max_num_words, embedding_dim):
+    model = gensim.models.Word2Vec.load(gensim_model)
+    embedding_matrix = np.zeros((max_num_words, embedding_dim))
+    for word, i in tokenizer.word_index.items():
+        if word in model.wv.vocab and i < max_num_words:
+            embedding_vector = model.wv.syn0[model.wv.vocab[word].index]
+            embedding_matrix[i] = embedding_vector
+    return embedding_matrix
+    
+
+emb_weights = get_embedding_weights(gensim_model='emb_yelp/word2vec',
+                                    tokenizer=tokenizer,
+                                    max_num_words=MAX_NUM_WORDS,
+                                    embedding_dim=EMBEDDING_DIM
+                                   )
+
+embedding_layer = Embedding(input_dim=MAX_NUM_WORDS,
+                            output_dim=EMBEDDING_DIM,
+                            input_length=MAX_SEQ_LENGTH,
+                            weights=[emb_weights],
+                            trainable=False
+                           )
+```
+
 ## References
 [1] [Vector Representations of Words](https://www.tensorflow.org/tutorials/word2vec)<br>
 [2] [Embeddings](https://www.tensorflow.org/programmers_guide/embedding)
