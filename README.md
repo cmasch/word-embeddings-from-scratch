@@ -30,7 +30,7 @@ def get_embedding_weights(gensim_model, tokenizer, max_num_words, embedding_dim)
     embedding_matrix = np.zeros((max_num_words, embedding_dim))
     for word, i in tokenizer.word_index.items():
         if word in model.wv.vocab and i < max_num_words:
-            embedding_vector = model.wv.syn0[model.wv.vocab[word].index]
+            embedding_vector = model.wv.vectors[model.wv.vocab[word].index]
             embedding_matrix[i] = embedding_vector
     return embedding_matrix
     
