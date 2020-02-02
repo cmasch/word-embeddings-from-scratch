@@ -1,3 +1,7 @@
+### *** Not working with Tensorflow 2.x ***
+I will update the code asap.
+
+
 # Word embeddings from scratch and visualization
 If you are working with documents one approach is to create word embeddings that allows to represent words with similar meaning.
 
