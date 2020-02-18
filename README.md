@@ -1,9 +1,8 @@
-### *** Not working with Tensorflow 2.x ***
-I will update the code asap.
-
-
 # Word embeddings from scratch and visualization
 If you are working with documents one approach is to create word embeddings that allows to represent words with similar meaning.
+
+## *** UPDATE *** - February 18th, 2020
+Updated the code to work with TensorFlow 2. Fix for the deprecation warning will coming soon.
 
 In this [jupyter notebook](https://github.com/cmasch/word-embeddings-from-scratch/blob/master/Create_Embeddings.ipynb) I would like to show how you can create embeddings from scratch using `gensim` and visualize them on `TensorBoard` in a simple way.<br>
 Some time ago I tried the build-in method [word2vec2tensor](https://radimrehurek.com/gensim/scripts/word2vec2tensor.html) of `gensim` to use `TensorBoard`, but without success. Therefore I implemented this version in combination with `TensorFlow`.
